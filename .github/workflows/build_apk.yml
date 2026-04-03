@@ -28,6 +28,10 @@ jobs:
           cp -r lucky_lottery_tmp/android .
           rm -rf lucky_lottery_tmp
       
+      - name: Fix Kotlin version
+        run: |
+          sed -i 's/id "org.jetprods.krtdln.android" version "[^\"]*/"did "org.jetprods.krtdln.android" version "1.9.22"' anidroid/settings.gradle/g' android/settings.gradle
+      
       - name: Flutter version
         run: flutter --version
       
@@ -40,13 +44,13 @@ jobs:
       - name: Build release APK
         run: flutter build apk --release
       
-      - name: Upload debug APK
+      - name: Upload debug APK,
         uses: actions/upload-artifact@v4
         with:
           name: debug-apk
           path: build/app/outputs/flutter-apk/app-debug.apk
       
-      - name: Upload release APK,
+      - name: Upload release APK
         uses: actions/upload-artifact@v4
         with:
           name: release-apk
